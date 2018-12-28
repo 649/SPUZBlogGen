@@ -20,21 +20,44 @@ else:
     stage = 0
     option = 0
 while(Path(filename).is_file() and option != 5):
-    try:
-        print("[*] ----- STAGE ONE -----")
-        print("[1] Insert <TITLE> Info")
-        print("[2] Enter HEADER Title")
-        print("[3] Enter AUTHOR Info")
-        print("[4] Insert Primary Image")
-        print("[5] Quit Blog Generator")
-        print("[*] ---------------------")
-        option = int(input("[*] Enter Selection #: "))
-        if not (1 <= option <= 5):
-            raise ValueError()
-    except ValueError:
-        print("[*] WARNING: Invalid Option %d! (1-5)" % option)
-    else:
-        
+    if(stage == 0):
+        try:
+            print("[*] ----- STAGE ONE -----")
+            print("[1] Insert <TITLE> Info")
+            print("[2] Enter HEADER Title")
+            print("[3] Enter AUTHOR Info")
+            print("[4] Insert Primary Image")
+            print("[5] Quit Blog Generator")
+            print("[*] ---------------------")
+            option = int(input("[*] Enter Selection #: "))
+            if not (1 <= option <= 5):
+                raise ValueError()
+        except ValueError:
+            print("[*] WARNING: Invalid Option %d! (1-5)" % option)
+        else:
+            if(option == 1):
+                title = input("[*] Insert <TITLE> Info: ")
+                titlelvl = 1
+            elif(option == 2):
+                header = input("[*] Enter HEADER Title: ")
+                headerlvl = 1
+            elif(option == 3):
+                authorname = input("[*] Enter Author Name: ")
+                authorlink = input("[*] Insert Author URL: ")
+                authorlvl = 1
+            elif(option == 4):
+                while(primaryimglvl == 0):
+                    primaryimage = input("[*] Insert Primary Image FULL Filename: ")
+                    if (Path("./img/%s" % primaryimage).is_file()):
+                        primaryimglvl = 1
+                    else:
+                        print("[*] WARNING: Image Filepath not Valid!")
+            if(titlelvl == 1 and headerlvl == 1 and authorlvl == 1 and primarylvl == 1):
+                stage+=1
+    elif(stage == 1):
+        try:
+
+
 
 
         if(stage == 5):

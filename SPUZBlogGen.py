@@ -29,10 +29,22 @@ while(Path(filename).is_file() and option != 5):
     if(stage == 0):
         try:
             print("[*] ----- STAGE ONE -----")
-            print("[1] Insert <TITLE> Info")
-            print("[2] Enter HEADER Title")
-            print("[3] Enter AUTHOR Info")
-            print("[4] Insert Primary Image")
+            if(titlelvl == 0):
+                print("[1] Insert <TITLE> Info")
+            else:
+                print("[+] Insert <TITLE> Info")
+            if(headerlvl == 0):
+                print("[2] Enter HEADER Title")
+            else:
+                print("[+] Enter HEADER Title")
+            if(authorlvl == 0):
+                print("[3] Enter AUTHOR Info")
+            else:
+                print("[+] Enter AUTHOR Info")
+            if(primaryimglvl == 0):
+                print("[4] Insert Primary Image")
+            else:
+                print("[+] Insert Primary Image")
             print("[5] Quit Blog Generator")
             print("[*] ---------------------")
             print("")
@@ -115,6 +127,12 @@ while(Path(filename).is_file() and option != 5):
                 print("")
                 tempvideo = '<hr><iframe width="100%" height="422" src="' + tempvideo + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><hr>'
                 content.append(tempvideo)
+            elif(option == 5):
+                justincase = input("[*] Are you sure you want to quit? <y/N>: ").lower()
+                if(justincase == 'y'):
+                    break
+                elif(justincase == 'n'):
+                    option = 0
             elif(option == 6):
                 init = """
 <!DOCTYPE html>

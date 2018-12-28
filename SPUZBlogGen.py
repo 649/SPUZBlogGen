@@ -66,7 +66,7 @@ while(Path(filename).is_file() and option != 5):
                     else:
                         print("[*] WARNING: Image Filepath not Valid!")
                         print("")
-            if(titlelvl == 1 and headerlvl == 1 and authorlvl == 1 and primarylvl == 1):
+            if(titlelvl == 1 and headerlvl == 1 and authorlvl == 1 and primaryimglvl == 1):
                 stage+=1
     elif(stage == 1):
         try:
@@ -299,6 +299,7 @@ while(Path(filename).is_file() and option != 5):
                 i = 0
                 while(i < len(content)):
                     file.write(content[i])
+                    i+=1
 
                 init = """
 <hr>
@@ -398,3 +399,6 @@ while(Path(filename).is_file() and option != 5):
 </html>
                 """
                 file.write(init)
+                print("[*] Blog Post READY for Upload!")
+                option = 5
+                break

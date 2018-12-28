@@ -62,6 +62,7 @@ while(Path(filename).is_file() and option != 5):
                     primaryimage = input("[*] Insert Primary Image FULL Filename: ")
                     print("")
                     if (Path("./img/%s" % primaryimage).is_file()):
+                        primaryimage = '<hr><img class="img-responsive" src="./img/' + primaryimage + '" alt=""><hr>'
                         primaryimglvl = 1
                     else:
                         print("[*] WARNING: Image Filepath not Valid!")
@@ -227,7 +228,6 @@ while(Path(filename).is_file() and option != 5):
                 file.write(header)
                 init = """
 </b></h1>
-
                 <!-- Author -->
                 <p class="lead">
                     by <a href="
@@ -237,11 +237,8 @@ while(Path(filename).is_file() and option != 5):
                 file.write('">')
                 file.write(authorname)
                 init = """
-</a>
-                </p>
-
+</a></p>
                 <hr>
-
                 <!-- Date/Time -->
                 <p><span class="glyphicon glyphicon-time"></span> Posted on 
                 """
@@ -277,25 +274,9 @@ while(Path(filename).is_file() and option != 5):
                     month = 'November'
                 elif(now.month == 12):
                     month = 'December'
-                now = month + " " + str(now.day) + ", " + str(now.year) + " at " + str(hour) + ":" + str(now.minute) + " " + period
+                now = month + " " + str(now.day) + ", " + str(now.year) + " at " + str(hour) + ":" + str(now.minute) + " " + period + "</p>"
                 file.write(now)
-                init = """
-</p>
-
-                <hr>
-
-                <!-- Preview Image -->
-                <img class="img-responsive" src="./img/
-                """
-                file.write(init)
                 file.write(primaryimage)
-                init = """
-" alt="">
-
-                <hr>
-                """
-                file.write(init)
-
                 i = 0
                 while(i < len(content)):
                     file.write(content[i])
@@ -303,7 +284,6 @@ while(Path(filename).is_file() and option != 5):
 
                 init = """
 <hr>
-				
 			<!-- Comments Section -->
 			<a class="twitter-timeline" data-dnt="true" show-replies="true" width="850" height="600" tweet-limit="10" href="https://twitter.com/hashtag/SPUZ" data-widget-id="985893656476266497">#SPUZ Tweets</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -400,5 +380,4 @@ while(Path(filename).is_file() and option != 5):
                 """
                 file.write(init)
                 print("[*] Blog Post READY for Upload!")
-                option = 5
                 break

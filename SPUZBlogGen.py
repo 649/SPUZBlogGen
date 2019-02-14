@@ -161,7 +161,7 @@ while(Path(filename).is_file() and option != 5):
                 file.write(init)
                 file.write(twitterusername)
                 init = """' />
-<meta property="og:url" content='./"""
+<meta name="twitter:url" property="og:url" content='./"""
                 file.write(init)
                 file.write(filename)
                 init = """' />

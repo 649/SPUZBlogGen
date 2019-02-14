@@ -20,6 +20,17 @@ else:
     stage = 0
     option = 0
 
+titlecard = input("[*] Enter blog post title: ")
+desccard = input("[*] Enter blog post description: ")
+primaryimagecardlvl = 0
+while(primaryimagecardlvl == 0):
+    primaryimagecard = input("[*] Enter blog post image (pix*.png): ")
+    if(Path("./img/nails/%s" % primaryimagecard).is_file()):
+        primaryimagecardlvl = 1
+    else:
+        print("[*] WARNING: Image Filepath not Valid!")
+
+print("")
 titlelvl = 0
 headerlvl = 0
 authorlvl = 0
@@ -66,7 +77,9 @@ while(Path(filename).is_file() and option != 5):
                 headerlvl = 1
             elif(option == 3):
                 authorname = input("[*] Enter Author Name: ")
-                authorlink = input("[*] Insert Author URL: ")
+                authorlink = input("[*] Insert Author Twitter Username: ")
+                twitterusername = authorlink
+                authorlink = 'https://twitter.com/' + authorlink
                 print("")
                 authorlvl = 1
             elif(option == 4):
@@ -123,7 +136,8 @@ while(Path(filename).is_file() and option != 5):
                         print("[*] WARNING: Image Filepath not Valid!")
                         print("")
             elif(option == 4):
-                tempvideo = input("[*] Insert new Video YouTube Full URL: ")
+                tempvideo = input("[*] Insert new Video YouTube ID: ")
+                tempvideo = 'https://www.youtube.com/embed/' + tempvideo
                 print("")
                 tempvideo = '<hr><iframe width="100%" height="422" src="' + tempvideo + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><hr>'
                 content.append(tempvideo)
@@ -139,6 +153,31 @@ while(Path(filename).is_file() and option != 5):
 <html lang="en">
 
 <head>
+
+<!----Twitter SEO---->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content='@SpuzNiq' />
+<meta name="twitter:creator" content='@"""
+                file.write(init)
+                file.write(twitterusername)
+                init = """' />
+<meta property="og:url" content='./"""
+                file.write(init)
+                file.write(filename)
+                init = """' />
+<meta name="twitter:title" property="og:title" content='"""
+                file.write(init)
+                file.write(titlecard)
+                init = """' />
+<meta name="twitter:description" property="og:description" content='"""
+                file.write(init)
+                file.write(desccard)
+                init = """' name="twitter:description" />
+<meta name="twitter:image" property="og:image" content='./img/nails/"""
+                file.write(init)
+                file.write(primaryimagecard)
+                init = """' />
+
 <!----Google Analytics---->	
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115535331-1"></script>
 <script>
@@ -248,11 +287,10 @@ while(Path(filename).is_file() and option != 5):
 </b></h1>
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="
-                """
+                    by <a href='"""
                 file.write(init)
                 file.write(authorlink)
-                file.write('">')
+                file.write("'>")
                 file.write(authorname)
                 init = """
 </a></p>
@@ -292,7 +330,31 @@ while(Path(filename).is_file() and option != 5):
                     month = 'November'
                 elif(now.month == 12):
                     month = 'December'
-                now = month + " " + str(now.day) + ", " + str(now.year) + " at " + str(hour) + ":" + str(now.minute) + " " + period + "</p>"
+
+                if(now.minute == 1):
+                    minute = '01'
+                elif(now.minute == 2):
+                    minute = '02'
+                elif(now.minute == 3):
+                    minute = '03'
+                elif(now.minute == 4):
+                    minute = '04'
+                elif(now.minute == 5):
+                    minute = '05'
+                elif(now.minute == 6):
+                    minute = '06'
+                elif(now.minute == 7):
+                    minute = '07'
+                elif(now.minute == 8):
+                    minute = '08'
+                elif(now.minute == 9):
+                    minute = '09'
+                elif(now.minute == 0):
+                    minute = '00'
+                else:
+                    minute = now.minute
+
+                now = month + " " + str(now.day) + ", " + str(now.year) + " at " + str(hour) + ":" + str(minute) + " " + period + "</p>"
                 file.write(now)
                 file.write(primaryimage)
                 i = 0
@@ -303,9 +365,8 @@ while(Path(filename).is_file() and option != 5):
                 init = """
 <hr>
 			<!-- Comments Section -->
-			<a class="twitter-timeline" data-dnt="true" show-replies="true" width="850" height="600" tweet-limit="10" href="https://twitter.com/hashtag/SPUZ" data-widget-id="985893656476266497">#SPUZ Tweets</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-          
+			<a class="twitter-timeline" data-dnt="true"  width="850" height="600" tweet-limit="10" href="https://twitter.com/SpuzNiq/likes">InfoSec Related</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+			
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
@@ -363,7 +424,7 @@ while(Path(filename).is_file() and option != 5):
 
                 <!-- Side Widget Well -->
                 <div class="well">
-			<a class="twitter-timeline" href="https://twitter.com/SPUZNIQ">Tweets by SPUZNIQ</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+			<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/SPUZNIQ">Tweets by SPUZNIQ</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
 
             </div>
@@ -377,7 +438,7 @@ while(Path(filename).is_file() and option != 5):
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; SPUZ 2016 - 2018</p>
+                    <p>Copyright &copy; SPUZ 2016 - <script>document.write(new Date().getFullYear());</script></p>
                 </div>
             </div>
             <!-- /.row -->

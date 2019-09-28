@@ -161,7 +161,7 @@ while(Path(filename).is_file() and option != 5):
                 file.write(init)
                 file.write(twitterusername)
                 init = """' />
-<meta name="twitter:url" property="og:url" content='./"""
+<meta name="twitter:url" property="og:url" content='https://spuz.me/blog/zine/"""
                 file.write(init)
                 file.write(filename)
                 init = """' />
@@ -173,7 +173,7 @@ while(Path(filename).is_file() and option != 5):
                 file.write(init)
                 file.write(desccard)
                 init = """' name="twitter:description" />
-<meta name="twitter:image" property="og:image" content='./img/nails/"""
+<meta name="twitter:image" property="og:image" content='https://spuz.me/blog/zine/img/nails/"""
                 file.write(init)
                 file.write(primaryimagecard)
                 init = """' />

@@ -205,25 +205,6 @@ while(Path(filename).is_file() and option != 5):
                 file.write(primaryimagecard)
                 init = """' />
 
-<!----Google Analytics---->	
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115535331-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115535331-1');
-</script>
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8088146909281544",
-          enable_page_level_ads: true
-     });
-</script>
-<!------------------------>
-
 	<link rel="icon" type="image/png" href="./img/main/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="./img/main/favicon-16x16.png" sizes="16x16" />
 	

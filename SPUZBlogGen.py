@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import re
+import random
 import sys, os, datetime
 from pathlib import Path
 
@@ -10,6 +12,31 @@ print("""
  ▀▀▀▀ .▀    ▀▀▀ ·▀▀▀ •    ·▀▀▀▀ .▀▀▀  ▀█▄▀▪·▀▀▀▀     ·▀▀▀▀  ▀▀▀ ▀▀ █▪
         [ Interactive Shell for Generating SPUZ Blog Content ]
 """)
+
+class word():
+    start = 0
+    end = 0
+    wrd = 'null'
+
+def bitwise(text):
+    n = []
+    result = re.finditer(r"\{(\b(?:[^}]+)\|?\b)+\}", text, re.MULTILINE)
+    for xnum, x in enumerate(result, start=1):
+        res = re.split("\|", x.group(1))
+        obj = word()
+        obj.start = x.start()
+        obj.end = x.end()
+        obj.wrd = random.choice(res)
+        n.insert(xnum, obj)
+    sum = 0
+    insrt = 0
+    for x in n:
+        x.start = x.start - sum + insrt
+        x.end = x.end - sum + insrt
+        text = text[:x.start] + x.wrd + text[x.end:]
+        sum += x.end - x.start
+        insrt += len(x.wrd)
+    return text
 
 filename = input("[*] Enter blog post filename: ") + '.html'
 if (Path(filename).is_file()):
@@ -121,7 +148,7 @@ while(Path(filename).is_file() and option != 5):
             elif(option == 2):
                 tempparagraph = input("[*] Insert new PARAGRAPH: \n\n")
                 print("")
-                tempparagraph = '<p>' + tempparagraph + '</p>'
+                tempparagraph = '<p>' + bitwise(tempparagraph) + '</p>'
                 content.append(tempparagraph)
             elif(option == 3):
                 imglvl = 0

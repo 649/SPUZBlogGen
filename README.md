@@ -1,40 +1,67 @@
 # SPUZ Blog Post Generator
 
-* Author: [@037](https://x.com/037)
+**Author**: [@037](https://x.com/037)
 
-This python script allows you to produce blog posts for the spuz.me platform. You may reverse engineer this script if you find it useful to automate content production for your own blog!
+This Python script generates blog posts for the *spuz.me* platform. If you find it useful for your own blog, you’re welcome to modify or automate it however you see fit.
 
-### Recent changes
-* Added the ability to save drafts of blog posts
-* Moved html content into its own template
+---
 
-### Prerequisites
+## Recent Changes
 
-The only thing you need installed is Python 3.x
+- **Draft Saving**: Automatically saves and loads drafts.
+- **Template Support**: Separates HTML structure into a dedicated template (`template.html`).
 
-```
+---
+
+## Prerequisites
+
+1. **Python 3.x**  
+```bash
 apt-get install python3
 ```
 
-You also need the following dependency installed:
-```
+2. **Jinja2**  
+```bash
 pip install jinja2
 ```
 
-You'll need to change the `WORK_DIR` in the code to reflect where you want your drafts and completed blogs to be stored.
+---
 
-Since I keep all my blog post images under "./img/", you're required to have all images stored under that directory.
+## Configuration
 
-Your directory tree should look like this for where your `WORK_DIR` is set:
+- **WORK_DIR**  
+  Update the `WORK_DIR` path in the script to indicate where drafts and finished blog posts should be saved.  
+
+- **Image Storage**  
+  All images must reside in `./img/`. Thumbnail images go in `./img/nails/`.
+
+A sample directory structure under your `WORK_DIR` might look like:
+```bash
+WORK_DIR/
+  ├─ img/
+  │   └─ nails/
+  ├─ ... (other files/folders)
+  └─ script.py
 ```
-./img/
-```
 
-Once you've created that folder "img", all images will be stored there. Images must be present prior to entering filename in the script or else it will tell you it's invalid.
+> **Note**: The script checks for valid image paths before insertion. If the file does not exist under `./img/` (or `./img/nails/` for thumbnails), the script will warn you that it’s invalid.
 
-Since you do not have the proper CSS and Javascript libraries, once the script is done running, the output (an HTML file) will not render properly.
+---
 
-This output file will only work when uploaded to the spuz.me platform. 
-Of course, not everyone will want that, and so if you want to use this script for your own blog, you must modify the HTML content within the python script on your own.
+## Usage Notes
 
-Feel free to optimize and make pull requests! ;-)
+1. Run the script and follow the interactive prompts to:
+   - Set the blog post’s title, description, author info, and primary images.
+   - Add subheaders, paragraphs, images, and embedded videos.
+
+2. When finalized, the script outputs an `.html` file that references **spuz.me**’s CSS and JS. If you’re using this script elsewhere, you will likely need to adjust the HTML to match your own blog’s styling and framework.
+
+3. Drafts are stored as JSON files, allowing you to resume unfinished work at any time.
+
+---
+
+## Disclaimer
+
+The generated HTML is designed for use on spuz.me, which hosts the required CSS and JavaScript assets. If you plan to reuse this script for another blog platform, **be aware** that the output may need additional styling or scripting changes.
+
+Pull requests and optimizations are welcome! Have fun blogging!

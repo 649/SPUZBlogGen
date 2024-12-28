@@ -3,16 +3,25 @@
 
 <head>
 
+<!----Twitter SEO---->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content='@spuz_' />
+<meta name="twitter:creator" content='@{{ twitterusername }}' />
+<meta name="twitter:url" property="og:url" content='https://spuz.me/blog/zine/{{ filename }}' />
+<meta name="twitter:title" property="og:title" content='{{ titlecard }}' />
+<meta name="twitter:description" property="og:description" content='{{ desccard }}' name="twitter:description" />
+<meta name="twitter:image" property="og:image" content='https://spuz.me/blog/zine/img/nails/{{ primaryimagecard }}' />
+
 	<link rel="icon" type="image/png" href="./img/main/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="./img/main/favicon-16x16.png" sizes="16x16" />
-
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SPUZ : TITLE</title>
+    <title>SPUZ : {{ title }}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -80,49 +89,20 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1><b>HEADER</b></h1>
-
+                <h1><b>{{ header }}</b></h1>
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="https://twitter.com/037">AKM</a>
-                </p>
-
+                    by <a href='{{ authorlink }}'>{{ authorname }}</a></p>
                 <hr>
-
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on MONTH DD, YYYY at H:MM PM/AM</p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{ formatted_date }}</p>
+                {{ primaryimage }}
 
+                {{ all_content }}
                 <hr>
-
-                <!-- Preview Image -->
-                <img class="img-responsive" src="./img/w4nn4cry.jpg" alt="">
-
-                <hr>
-
-                <!-- Post Content -->
-                <p class="lead">SUB HEADER</p>
-                <p>Words go here.</p>
-				<hr>
-                <img class="img-responsive" src="./img/W4n4d3cryp70r.png" alt="">
-				<hr>
-				<p><i>More words here.</i></p>
-				<hr>
-				<img class="img-responsive" src="./img/w4nn4cry5pr34d1ng.png" alt="">
-				<hr>
-				<p><b>Even more words.</b></p>
-				<hr>
-                <img class="img-responsive" src="./img/w4nn4cry1nf3c73d.jpg" alt="">
-				<hr>
-				<p><u>I think we get the idea.</u></p>
-				<hr>
-				<iframe width="100%" height="422" src="https://www.youtube.com/embed/xkzkxIN6FE0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				<hr>
-				<p>Links work like <a href="https://github.com/649">this</a>.</p>
-				<hr>
-
 			<!-- Comments Section (BROKEN, since X decided to private likes) -->
-			<a class="twitter-timeline" data-dnt="true"  width="850" height="600" tweet-limit="10" href="https://twitter.com/spuz_/likes">InfoSec Related</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+			<a class="twitter-timeline" data-dnt="true"  width="850" height="600" tweet-limit="10" href="https://twitter.com/spuz_/likes">InfoSec Related</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+			
             </div>
 
             <!-- Blog Sidebar Widgets Column -->

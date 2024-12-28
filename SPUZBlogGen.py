@@ -10,6 +10,9 @@ from jinja2 import Environment, FileSystemLoader
 
 WORK_DIR = Path('../spuz.me/blog/zine/')
 
+# If data.json lives elsewhere, adjust accordingly
+DATA_JSON_PATH = WORK_DIR / '../../data.json'
+
 print(
     f"""
 .▄▄ ·  ▄▄▄·▄• ▄▌·▄▄▄▄•    ▄▄▄▄· ▄▄▌         ▄▄ •      ▄▄ • ▄▄▄ . ▐ ▄ 
@@ -56,7 +59,7 @@ def bitwise(text):
 
         text = text[:rep_start] + rep.wrd + text[rep_end:]
         # Keep track of how many characters have been removed/inserted
-        removed_len = (rep_end - rep_start)
+        removed_len = rep_end - rep_start
         inserted_len = len(rep.wrd)
         total_removed += removed_len
         total_inserted += inserted_len
@@ -122,7 +125,7 @@ primaryimagecard = draft_data.get("primaryimagecard", 'null')
 
 # Prompt for a valid image file if the "card" image isn't set yet
 while primaryimagecardlvl == 0 and not file_exists(f"img/nails/{primaryimagecard}"):
-    primaryimagecard = input("[*] Enter blog post image (pix*.png): ")
+    primaryimagecard = input("[*] Enter blog post thumbnail image (pix*.png): ")
     if file_exists(f"img/nails/{primaryimagecard}"):
         primaryimagecardlvl = 1
     else:
@@ -283,7 +286,15 @@ while option != 5:
 
             elif option == 6:
                 # Finalize Blog Post
-                # Load your template
+                # 1) Ask for comma-delimited tags if not already saved
+                tags_list = draft_data.get('tags', [])
+                if not tags_list:
+                    user_tags = input("[*] Enter comma-delimited tags: ")
+                    tags_list = [tag.strip() for tag in user_tags.split(',') if tag.strip()]
+                    # Save to draft, so we don't lose it if user restarts
+                    save_draft(draft_filename, {'tags': tags_list})
+
+                # 2) Load your template
                 template_folder = './'
                 env = Environment(loader=FileSystemLoader(template_folder))
                 template = env.get_template('template.html')
@@ -299,6 +310,9 @@ while option != 5:
                 twitteruser = draft_data.get('twitterusername', '')
                 primaryimg  = draft_data.get('primaryimage', '')
 
+                # Convert list of tags into a single string for the blog, if needed
+                all_content = ''.join(content)
+
                 variables = {
                     'twitterusername': twitteruser,
                     'filename': filename_html,
@@ -311,17 +325,37 @@ while option != 5:
                     'authorname': authorname,
                     'formatted_date': formatted_date,
                     'primaryimage': primaryimg,
-                    'all_content': '',
+                    'all_content': all_content,
                     'content': content
                 }
 
-                # Convert list of tags into a single string
-                all_content = ''.join(content)
-                variables['all_content'] = all_content
-
                 save_draft(draft_filename, variables)
 
-                # Render and write final HTML
+                # 3) Insert a new item at the top of data.json
+                #    ensuring we do not overwrite existing data, but prepend
+                if DATA_JSON_PATH.is_file():
+                    with open(DATA_JSON_PATH, 'r') as f:
+                        data_json = json.load(f)
+                else:
+                    # In case data.json does not exist yet, create a skeleton
+                    data_json = {"items": []}
+
+                new_item = {
+                    "imageSrc": f"/blog/zine/img/nails/{primaryimagecard}",
+                    "altText": "",
+                    "title": titlecard,
+                    "description": desccard,
+                    "link": f"/blog/zine/{filename_html}",
+                    "tags": tags_list
+                }
+                data_json["items"].insert(0, new_item)
+
+                # Write updated data.json
+                with open(DATA_JSON_PATH, 'w') as f:
+                    json.dump(data_json, f, indent=2)
+                print(f"[*] data.json updated with new item at the top.")
+
+                # 4) Render and write final HTML
                 output_html = template.render(variables)
                 with open(WORK_DIR / filename_html, "w") as file:
                     file.write(output_html)
@@ -329,6 +363,6 @@ while option != 5:
                 print("[*] Blog Post READY for Upload!")
                 break
 
-            # After each Stage 2 action (except finalize), update & save
+            # After each Stage 2 action (except finalize or forced quit), update & save
             all_content = ''.join(content)
             save_draft(draft_filename, {'all_content': all_content, 'content': content})

@@ -2,6 +2,8 @@
 
 **Author**: [@037](https://x.com/037)
 
+![alt text](https://raw.githubusercontent.com/649/SPUZBlogGen/master/1.png)
+
 This Python script generates blog posts for the *spuz.me* platform. If you find it useful for your own blog, you’re welcome to modify or automate it however you see fit.
 
 ---
